@@ -22,6 +22,8 @@ class ImageUploadHandler
             return false;
         }
 
+        $file->move($upload_path, $filename);
+
         if ($max_width && $extension != 'gif') {
             $this->reduceSize($upload_path.'/'.$filename, $max_width);
         }
@@ -36,7 +38,10 @@ class ImageUploadHandler
         $image = Image::make($upload_path);
 
         $image->resize($max_width, null, function ($constraint) {
+            $constraint->aspectRatio();
 
+            $constraint->upsize();
         });
+        $image->save();
     }
 }

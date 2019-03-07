@@ -3,18 +3,19 @@
 namespace App\Handlers;
 
 use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploadHandler
 {
     protected $allowed_ext = ['png', 'jpg', 'jpeg', 'gif'];
 
-    public function save($file, $folder, $file_prefix, $max_width = false)
+    public function save(UploadedFile $file, $folder, $file_prefix, $max_width = false)
     {
         $folder_name = "uploads/images/$folder/".date('Ym/d', time());
 
         $upload_path = public_path(). '/'. $folder_name;
 
-        $extension = strtolower($file->getClientOrginalExtension()) ?: 'png';
+        $extension = strtolower($file->getClientOriginalExtension()) ?: 'png';
 
         $filename = $file_prefix.'_'.time().'_'.str_random(10).'.'.$extension;
 

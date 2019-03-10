@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                @include('topics._topic_list', ['topics' => $topics])
+                @include('topics._topics_list', ['topics' => $topics])
 
                 {!! $topics->appends(Request::except('page'))->render() !!}
             </div>
